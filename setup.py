@@ -8,4 +8,10 @@ setup(name='pytrackcontrol',
       author_email='oliver@gavin.ie',
       license='MIT',
       packages=['pytrackcontrol'],
+      install_requires=[
+          # 'markdown',
+      ],
+      # dependency_links=['http://github.com/user/repo/tarball/master#egg=package-1.0'],
+      test_suite='nose2.collector.collector',
+      tests_require=['nose2'],
       zip_safe=False)
