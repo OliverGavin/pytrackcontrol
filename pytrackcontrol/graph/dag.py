@@ -13,10 +13,7 @@ class Dag:
         """
         self._root = root
         self._vertices = set([root]) if root else set()
-        self._graph = defaultdict(list)  # set?
-
-    # def remove_vertex(self, v):
-    #     pass                    # del indegree[v]  # for each child, -1
+        self._graph = defaultdict(list)
 
     def add_edge(self, u, v):
         """Add an edge to the dag from vertex u to v.
@@ -26,7 +23,7 @@ class Dag:
         if v not in self._vertices:
             self._vertices.add(v)
 
-        self._graph[u].append(v)  # indegree[v] += 1 ??
+        self._graph[u].append(v)
 
     def topological_sort(self):
         # get indegree of each vertex
