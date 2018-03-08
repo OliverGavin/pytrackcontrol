@@ -11,5 +11,5 @@ class TrackEventController(EventController):
         pass  # self register some predefined functions?
 
     @property
-    def _context(self):
+    def _context(self):  # source??
         return get_camera_stream(multi_thread=True, framerate=30)

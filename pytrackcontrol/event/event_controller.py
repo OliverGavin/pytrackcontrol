@@ -44,7 +44,7 @@ class EventController(ABC, EventEmitter):
             try:
                 with self._context as ctx:
                     self._iterate(ctx)
-            except AttributeError:
+            except AttributeError:  # TODO better, stop swallowing exceptions
                 self._iterate(self._context)
 
     def _iterate(self, iterable):
@@ -69,7 +69,7 @@ class EventController(ABC, EventEmitter):
             provider = self._event_providers[event]
 
             inputs = [outputs[dep] for dep in provider['dependencies']]
-            provider['function'](partial(resolver, event), *inputs)
+            provider['function'](partial(resolver, event), *inputs)  # TODO what if they don't resolve?
 
     def _refresh_handlers(self):  # TODO thread safety
         """
@@ -173,7 +173,7 @@ class EventController(ABC, EventEmitter):
 
         if fn:
             # normal usage
-            return _register(fn)
+            return _register(fn, dep)
         else:
             # decorator usage
             def decorator(fn):
