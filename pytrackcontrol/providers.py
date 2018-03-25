@@ -18,4 +18,6 @@ class FaceBBoxProvider:
         self._face_tracker = FaceTracker()
 
     def provide(self, resolve, img):
-        resolve(self._face_tracker.track(img))
+        bbox = self._face_tracker.track(img)
+        if bbox:
+            resolve(bbox)

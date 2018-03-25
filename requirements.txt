@@ -1,0 +1,1 @@
+-e git+git@github.com:OliverGavin/pytrackvision.git@a2671cfee7c76d291839ab9efc475034045fd104#egg=pytrackvision

@@ -68,8 +68,11 @@ class EventController(ABC, EventEmitter):
         for event in self._event_sequence[1:]:
             provider = self._event_providers[event]
 
-            inputs = [outputs[dep] for dep in provider['dependencies']]
-            provider['function'](partial(resolver, event), *inputs)  # TODO what if they don't resolve?
+            try:
+                inputs = [outputs[dep] for dep in provider['dependencies']]
+                provider['function'](partial(resolver, event), *inputs)  # TODO what if they don't resolve?, optional?
+            except KeyError as e:
+                print(e)
 
     def _refresh_handlers(self):  # TODO thread safety
         """
