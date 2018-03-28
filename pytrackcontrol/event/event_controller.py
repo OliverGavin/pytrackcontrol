@@ -70,7 +70,9 @@ class EventController(ABC, EventEmitter):
 
             try:
                 inputs = [outputs[dep] for dep in provider['dependencies']]
-                provider['function'](partial(resolver, event), *inputs)  # TODO what if they don't resolve?, optional?
+                res = partial(resolver, event)
+                fn = provider['function']
+                fn(res, *inputs)  # TODO what if they don't resolve?, optional?
             except KeyError as e:
                 print(e)
 

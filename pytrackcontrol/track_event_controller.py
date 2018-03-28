@@ -7,7 +7,7 @@ class TrackEventController(EventController):
     def __init__(self, **kwargs):  # pass in some camera config object??
         """
         """
-        EventController.__init__(self, root_event_label='img', **kwargs)
+        EventController.__init__(self, root_event_label='src', **kwargs)
         pass  # self register some predefined functions?
 
     @property
