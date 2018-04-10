@@ -44,7 +44,7 @@ class EventController(ABC, EventEmitter):
             try:
                 with self._context as ctx:
                     self._iterate(ctx)
-            except AttributeError:  # TODO better, stop swallowing exceptions
+            except AttributeError:
                 self._iterate(self._context)
 
     def _iterate(self, iterable):
@@ -72,11 +72,13 @@ class EventController(ABC, EventEmitter):
                 inputs = [outputs[dep] for dep in provider['dependencies']]
                 res = partial(resolver, event)
                 fn = provider['function']
-                fn(res, *inputs)  # TODO what if they don't resolve?, optional?
+                fn(res, *inputs)
             except KeyError as e:
-                print(e)
+                # ignore if dependencies are not met
+                ...
+                # print(e)
 
-    def _refresh_handlers(self):  # TODO thread safety
+    def _refresh_handlers(self):
         """
         When a handler is added or removed, dependencies on providers may be
         added or removed too. We need only execute providers (and their
@@ -102,7 +104,7 @@ class EventController(ABC, EventEmitter):
         self._event_sequence = [e for e in self._provider_event_sequence
                                 if e in dependencies]
 
-    def _refresh_providers(self):  # TODO thread safety
+    def _refresh_providers(self):
         """
         When a provider is added, cycles may be introduced or dependencies may
         need to be reolved in order to execute in the correct order.
